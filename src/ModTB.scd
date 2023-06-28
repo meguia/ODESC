@@ -23,7 +23,7 @@ SynthDef(\FBT, { |m1 = -0.02, m2 = -0.2, f1 = 0.1, f2 = 0.1, a1 = 0.01, a2 = 0.0
 	mu1 = SinOsc.ar(f1).range(m1-a1,m1+a1);
 	mu2 = SinOsc.ar(f2).range(m2-a2,m2+a2);
 	sig = Fb1_ODE.ar(\Bogdanov, [mu1, mu2],tm, 0, [1, 1]);
-	sig = Mix(BPF.ar(sig,fc,fb/fc,fa));
+	sig = [Mix(BPF.ar(sig[0],fc,fb/fc,fa)),Mix(BPF.ar(sig[1],fc,fb/fc,fa))];
 	Out.ar(0, sig*amp*10)
 }, metadata: (specs: (
 	m1: [-0.1, 0.1, \lin, 0, -0.02],

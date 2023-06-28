@@ -51,6 +51,14 @@ SynthDef(\VChenlee2, {
 )).add;
 )
 
+
+(
+~scope = QStethoscope();
+~scope.scopeView.style = 2;
+SynthDescLib.global[\VChenlee2].makeGui;
+)
+
+
 ///////////////////////////////////////////////////////
 // ChenLee & VanderPol
 
@@ -79,7 +87,6 @@ SynthDef(\Vvanderpol, {
 )).add;
 )
 
-SynthDescLib.global[\Vvanderpol].makeGui;
 
 (
 SynthDef(\VChenleeVdp, {
@@ -99,6 +106,11 @@ SynthDef(\VChenleeVdp, {
 )).add;
 )
 
+(
+~scope = QStethoscope();
+~scope.scopeView.style = 2;
 SynthDescLib.global[\VChenleeVdp].makeGui;
+)
+
 
 ////////////////////////////////////////////////
