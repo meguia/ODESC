@@ -22,11 +22,14 @@ Ndef(\FD, {|mu = 1, beta = 1.0, omega = 0.1, a = 0.1,amp = 0.2,tm = 1000|
 )
 
 
+
 (
 ~scope = QStethoscope();
 ~scope.scopeView.style = 2;
 )
 
-Ndef(\FD).fadeTime = 5
+Ndef(\FD).fadeTime = 10
 
-Ndef(\FD).xset(\mu,0.01,\a, 2.3,\omega,0.1,\tm,104,\amp,0.0)
+Ndef(\FD).xset(\mu,0.03,\beta,0.7, \a, 1.4,\omega,1.1,\tm,104,\amp,0.0)
+
+Ndef(\FD).gui
