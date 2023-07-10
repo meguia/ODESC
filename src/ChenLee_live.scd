@@ -56,8 +56,13 @@ Ndef(\CHEN).play;
 Ndef(\CHEN).fadeTime = 15
 Ndef(\VDP).fadeTime = 5
 
-Ndef(\CHEN).xset(\a,6.0,\b,-12.0,\d,-0.17,\tm,20,\amp,0.1)
+Ndef(\CHEN).xset(\a,6.0,\b,-10.0,\d,-0.16,\tm,700,\amp,0.1)
 
-Ndef(\VDP).xset(\tau,1.99,\amp,0.2,\tm,300)
+Ndef(\VDP).xset(\tau,1.3,\amp,0.1,\tm,310)
 
-Ndef(\CHEN).xset(\a,6.0,\b,-10.0,\d,-0.4,\tm,100,\amp,0.1)
+Ndef(\VDP).xset(\tau,1.1,\amp,0.1,\tm,710)
+
+Ndef(\CHEN).xset(\a,6.0,\b,-12.0,\d,-0.37,\tm,3,\amp,0.4)
+
+Ndef(\CHEN).clear
+Ndef(\VDP).clear

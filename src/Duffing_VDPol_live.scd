@@ -1,7 +1,7 @@
 
-s.options.blockSize = 64;
-s.boot;
-
+s.options.blockSize = 128;
+s.reboot;
+r = Recorder(s);
 ////////////////////////////////////////////////////////////////////////
 /// COUPLED DUFFING AND VAN DER POL OSCILLATORS
 
@@ -45,14 +45,52 @@ Ndef(\Dvdp) <<>.in1 Ndef(\VDP);
 ~scope.scopeView.style = 2;
 )
 
-
-FreqScope.new(800, 300, 0);
+FreqScope.new(600, 300, 0);
 s.plotTree;
 
+///////////////////////////////////////////////////////////////////////////////
+r.record(numChannels:2);
+
 Ndef(\Dvdp).fadeTime = 10
-Ndef(\VDP).fadeTime = 15
+Ndef(\VDP).fadeTime = 5
 
 Ndef(\Dvdp).xset(\mu,0.06,\beta,0.6,\tm,300,\amp,0.06)
+Ndef(\VDP).xset(\tau,0.3,\amp,0.3,\tm,500) //QUIET START
 
-Ndef(\VDP).xset(\tau,0.3,\amp,0.3,\tm,500)
+Ndef(\Dvdp).xset(\mu,0.12,\beta,0.9,\tm,700,\amp,0.06)
+Ndef(\VDP).xset(\tau,0.7,\amp,0.1,\tm,400) // MILD CHAOS
+
+Ndef(\VDP).xset(\tau,0.7,\amp,0.1,\tm,1200) // STABILIZATION
+
+Ndef(\Dvdp).xset(\mu,0.1,\beta,0.9,\tm,700,\amp,0.06) // SLIGHTLY UNSTABLE
+
+Ndef(\VDP).xset(\tau,0.2,\amp,0.1,\tm,1700) // STABILIZATION
+Ndef(\VDP).xset(\tau,0.1,\amp,0.1,\tm,1700) // DES ''
+
+Ndef(\Dvdp).xset(\mu,0.1,\beta,0.5,\tm,500,\amp,0.1) // STABLE
+Ndef(\Dvdp).fadeTime = 3
+Ndef(\Dvdp).xset(\mu,0.1,\beta,-0.5,\tm,500,\amp,0.1) // ROTATION
+
+Ndef(\Dvdp).fadeTime = 10
+Ndef(\Dvdp).xset(\mu,0.1,\beta,0.5,\tm,2500,\amp,0.06) // CYCLES
+
+Ndef(\VDP).xset(\tau,0.1,\amp,1.2,\tm,1700) // HARMONICS
+
+Ndef(\Dvdp).xset(\mu,0.1,\beta,0.5,\tm,1200,\amp,0.04) // LESS CYCLES
+
+Ndef(\VDP).xset(\tau,0.1,\amp,0.1,\tm,1200)
+Ndef(\Dvdp).xset(\mu,0.1,\beta,0.2,\tm,600,\amp,0.06) // INVERSE HARMONICS
+
+/////////////////////////////////////
+r.stopRecording;
+Ndef(\Dvdp).clear
+Ndef(\VDP).clear
+
+
+
+
+
+
+
+
 
