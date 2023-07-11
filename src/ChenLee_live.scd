@@ -32,7 +32,7 @@ Ndef(\CHEN, {
 	env = Fb1_ODE.ar(\Chenlee, [\a.kr(5.0), \b.kr(-6.24),\d.kr(-0.76)],\tm.kr(85), 0, [0, 1, 1]);
 	sig = \input.ar(0);
 	LPF.ar(sig*env,2500.0)*\amp.kr(0.1);
-}).play;
+});
 )
 
 (
@@ -42,26 +42,29 @@ Ndef(\VDP, {
 });
 )
 
+s.plotTree;
 (
 ~scope = QStethoscope();
 ~scope.scopeView.style = 2;
 )
 
-
+///////////////////////////////////////////////
 Ndef(\CHEN) <<>.input Ndef(\VDP);
+///////////////////////////////////////////////
 
-s.plotTree;
 
+Ndef(\CHEN).xset(\a,6.0,\b,-10.0,\d,-0.11,\tm,40,\amp,0.1)
+Ndef(\VDP).xset(\tau,1.3,\amp,1.5,\tm,300)
 Ndef(\CHEN).play;
-Ndef(\CHEN).fadeTime = 15
+Ndef(\CHEN).fadeTime = 10
 Ndef(\VDP).fadeTime = 5
 
-Ndef(\CHEN).xset(\a,6.0,\b,-10.0,\d,-0.16,\tm,700,\amp,0.1)
 
+Ndef(\CHEN).xset(\a,6.0,\b,-10.0,\d,-0.16,\tm,700,\amp,0.1)
 Ndef(\VDP).xset(\tau,1.3,\amp,0.1,\tm,310)
 
-Ndef(\VDP).xset(\tau,1.1,\amp,0.1,\tm,710)
 
+Ndef(\VDP).xset(\tau,1.1,\amp,0.1,\tm,710)
 Ndef(\CHEN).xset(\a,6.0,\b,-12.0,\d,-0.37,\tm,3,\amp,0.4)
 
 Ndef(\CHEN).clear
