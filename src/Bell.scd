@@ -47,7 +47,7 @@ Fb1_ODEdef(\Bell, { |t, y, r = 0.4, lb= 1.6, k = 1000, mu=1.0, ymax = 0.45|
         { y[1] },
 		{ (-1)*sin(y[0])  },
 		{ y[3] },
-		{ (sin(y[0])*(1.0 + (r*cos(y[2])))) - (r*sin(y[2])*y[1].squared) - (lb*sin(y[0]+y[2])) - ((y[2]>ymax)*k*((y[2]-ymax).squared + (mu*y[3])))   + ((y[2]<ymax.neg)*k*((y[2]+ymax).squared - (mu*y[3])))}
+		{ (sin(y[0])*(1.0 + (r*cos(y[2])))) - (r*sin(y[2])*y[1].squared) - (lb*sin(y[0]+y[2])) - ((y[2]>ymax)*((k*(y[2]-ymax).squared) + (mu*y[3])))   + ((y[2]<ymax.neg)*((k*(y[2]+ymax).squared) - (mu*y[3])))}
     ]
 }, 0, [0, 0, 0, 0], 1, 1);
 )
@@ -64,4 +64,6 @@ Ndef(\BELL).clear;
 
 Stethoscope.new(s, 4, rate: 'control')
 
-Ndef(\BELL).set(\tm,100)
+Ndef(\BELL).set(\tm,300)
+
+Ndef(\BELL).set(\mu,1.0)
