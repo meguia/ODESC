@@ -1,7 +1,4 @@
 
-s.options.blockSize = 64;
-s.reboot;
-
 //////////////////////////////////////////////////
 /// Bouncing Ball (elastic surface)
 (
@@ -23,7 +20,7 @@ Ndef(\BALL, {
 
 
 ~scope = Stethoscope();
-~scope.scopeView.style = 2;
+~scope.style = 2;
 
 
 Ndef(\BALL).clear;
@@ -50,7 +47,7 @@ Fb1_ODEdef(\Bell, { |t, y, r = 0.4, lb= 1.6, k = 1000, mu=1.0, ymax = 0.45|
         { y[1] },
 		{ (-1)*sin(y[0])  },
 		{ y[3] },
-		{ (sin(y[0])*(1.0 + (r*cos(y[2])))) - (r*sin(y[2])*y[1].squared) - (lb*sin(y[0]+y[2])) - ((y[2]>ymax)*k*((y[2]-ymax).squared + (mu*y[3])))   + ((y[2]<ymax.neg)*k*((y[2]+ymax).squared - (mu*y[3])))}
+		{ (sin(y[0])*(1.0 + (r*cos(y[2])))) - (r*sin(y[2])*y[1].squared) - (lb*sin(y[0]+y[2])) - ((y[2]>ymax)*((k*(y[2]-ymax).squared) + (mu*y[3])))   + ((y[2]<ymax.neg)*((k*(y[2]+ymax).squared) - (mu*y[3])))}
     ]
 }, 0, [0, 0, 0, 0], 1, 1);
 )
@@ -97,6 +94,7 @@ Ndef(\BELL, {
 		tMul: \tm.kr(30), t0: 0, y0: [3.1, 0, 0, 0], intType: 'sym12', leakDC: false
 	)
 });
+
 
 Ndef(\BELL_clapper, {
 
