@@ -1,7 +1,4 @@
 
-s.options.blockSize = 64;
-s.reboot;
-
 ///////////////////////////////////////////////////
 /// FORCED DUFFING
 
@@ -34,7 +31,7 @@ SynthDef(\FD, { |mu = 1, beta = 1.0, omega = 0.1, a = 0.1,amp = 0.2,tm = 1000|
 )
 
 (
-~scope = QStethoscope();
-~scope.scopeView.style = 2;
+~scope = Stethoscope();
+~scope.style = 2;
 SynthDescLib.global[\FD].makeGui;
 )

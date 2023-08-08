@@ -1,7 +1,4 @@
 
-s.options.blockSize = 64;
-s.reboot;
-
 //////////////////////////////////////////////////////////////////////
 /// Chen Lee ATTRACTOR
 
@@ -53,8 +50,8 @@ SynthDef(\VChenlee2, {
 
 
 (
-~scope = QStethoscope();
-~scope.scopeView.style = 2;
+~scope = Stethoscope();
+~scope.style = 2;
 SynthDescLib.global[\VChenlee2].makeGui;
 )
 

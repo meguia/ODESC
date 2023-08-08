@@ -28,8 +28,8 @@ SynthDef(\VDhopf, {
 
 
 (
-~scope = QStethoscope();
-~scope.scopeView.style = 2;
+~scope = Stethoscope();
+~scope.style = 2;
 SynthDescLib.global[\VDhopf].makeGui;
 )
 

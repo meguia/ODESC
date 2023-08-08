@@ -1,7 +1,4 @@
 
-s.options.blockSize = 64;
-s.reboot;
-
 /////////////////////////////////////////////////////////
 /// MODULATED BOGDANOV TAKENS WITH CUBIC UNFOLDING
 
@@ -39,8 +36,8 @@ SynthDef(\FBT, { |m1 = -0.02, m2 = -0.2, f1 = 0.1, f2 = 0.1, a1 = 0.01, a2 = 0.0
 )
 
 (
-~scope = QStethoscope();
-~scope.scopeView.style = 2;
+~scope = Stethoscope();
+~scope.style = 2;
 SynthDescLib.global[\FBT].makeGui;
 )
 

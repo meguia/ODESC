@@ -1,6 +1,4 @@
 
-s.options.blockSize = 64;
-s.reboot;
 
 //////////////////////////////////////////////////////////////////////
 /// Chen Lee ATTRACTOR
@@ -44,8 +42,8 @@ Ndef(\VDP, {
 
 s.plotTree;
 (
-~scope = QStethoscope();
-~scope.scopeView.style = 2;
+~scope = Stethoscope();
+~scope.style = 2;
 )
 
 ///////////////////////////////////////////////
