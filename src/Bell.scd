@@ -5,14 +5,14 @@
 Fb1_ODEdef(\Ball, { |t, y, g = -9.8, k = 1000, mu = 1.0, surfacePosition = 0|
 	var position = y[0];
 	var velocity = y[1];
-    [
-        { velocity },
+	[
+		{ velocity },
 		{
 			var touching = position < surfacePosition;
 			var elasticForce = (k.neg * position) + (mu.neg * velocity);
 			touching * elasticForce + g
 		}
-    ]
+	]
 }, 0, [0, 0], 1, 1);
 )
 
@@ -62,12 +62,12 @@ Fb1_ODEdef(\Bell, { |t, y, r = 0.4, lb= 1.6, k = 1000, mu=1.0, ymax = 0.45|
 	var clapperVelocity = y[3];
 
 	[
-        { bellVelocity },
+		{ bellVelocity },
 		{ bellAngle.sin.neg  },
 		{ clapperVelocity },
 		{
 			var contactTerm =
-			((clapperAngle < ymax.neg)*((clapperAngle+ymax).squared * k - (mu*clapperVelocity)))
+			((clapperAngle < ymax.neg) * ((clapperAngle+ymax).squared * k - (mu*clapperVelocity)))
 			- ((clapperAngle > ymax) * ((clapperAngle-ymax).squared * k + (mu*clapperVelocity)));
 
 			(sin(bellAngle) * (1.0 + (r * cos(clapperAngle))))
@@ -75,23 +75,27 @@ Fb1_ODEdef(\Bell, { |t, y, r = 0.4, lb= 1.6, k = 1000, mu=1.0, ymax = 0.45|
 			- (lb * sin(bellAngle + clapperAngle))
 			+ contactTerm
 		}
-    ]
+	]
 }, 0, [0, 0, 0, 0], 1, 1);
 )
-
 
 (
 Ndef(\BELL, {
 	Fb1_ODE.kr(\Bell,
 		[
-			\r.kr(0.4),
-			\lb.kr(1.6),
-			\k.kr(100),
-			\mu.kr(0.0)
+			\r.kr(0.4),  // distance of clapper fixing from bell fixing (https://www.hindawi.com/journals/aav/2012/681787/fig6/)
+			\lb.kr(1.6), // relation clapper length factor to bell length factor
+			\k.kr(100),  // elasticity constant
+			\mu.kr(0.0)  // dissipation
 		],
-		tMul: \tm.kr(30), t0: 0, y0: [3.1, 0, 0, 0], intType: 'sym12', leakDC: false
+		tMul: \tm.kr(30), // time scaling
+		t0: 0,
+		y0: [3.1, 0, 0, 0], // initial bell velocity, the rest is zero in the beginning
+		intType: 'sym12',
+		leakDC: false
 	)
 });
+
 
 Ndef(\BELL_clapper, {
 
