@@ -26,7 +26,8 @@ Ndef(\BALL, {
 });
 )
 
-Ndef(\BALL).scope;
+
+Ndef(\BALL).scope.style_(2);
 Ndef(\BALL).clear;
 
 
@@ -112,7 +113,7 @@ Ndef(\BELL_clapper, {
 })
 )
 
-Ndef(\BELL).scope
+Ndef(\BELL).scope;
 
 Ndef(\BELL).set(\tm, 4.3);
 Ndef(\BELL).set(\tm, 140.3);

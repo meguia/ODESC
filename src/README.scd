@@ -22,4 +22,9 @@ s.reboot;
 )
 
 
+/*
+The solver uses instances of Fb1_ODEdef:
+*/
 
+Fb1_ODEdef.keys;
+Fb1_ODEdef.postAll;
