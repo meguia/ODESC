@@ -66,11 +66,14 @@ Ndef(\BALL, {
 
 
 (
-Fb1_ODEdef(\Bell, { |t, y, r = 0.4, lb= 1.6, k = 1000, mu=1.0, ymax = 0.45|
+Fb1_ODEdef(\Bell, { |t, y, r = 0.4, lb=1.6, lc=1, k = 1000, mu=1.0, ymax = 0.45|
 	var bellAngle = y[0];
 	var bellVelocity = y[1];
 	var clapperAngle = y[2];
 	var clapperVelocity = y[3];
+
+	var lbn = lb / lc;
+	var rn = r / lc;
 
 	[
 		{ bellVelocity },
@@ -81,9 +84,9 @@ Fb1_ODEdef(\Bell, { |t, y, r = 0.4, lb= 1.6, k = 1000, mu=1.0, ymax = 0.45|
 			((clapperAngle < ymax.neg) * ((clapperAngle+ymax).squared * k - (mu*clapperVelocity)))
 			- ((clapperAngle > ymax) * ((clapperAngle-ymax).squared * k + (mu*clapperVelocity)));
 
-			(sin(bellAngle) * (1.0 + (r * cos(clapperAngle))))
-			- (r * sin(clapperAngle) * bellVelocity.squared)
-			- (lb * sin(bellAngle + clapperAngle))
+			(sin(bellAngle) * (1.0 + (rn * cos(clapperAngle))))
+			- (rn * sin(clapperAngle) * bellVelocity.squared)
+			- (lbn * sin(bellAngle + clapperAngle))
 			+ contactTerm
 		}
 	]
