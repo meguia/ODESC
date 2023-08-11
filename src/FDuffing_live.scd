@@ -6,7 +6,7 @@
 Fb1_ODEdef(\FDuffing, { |t, y, mu = 0.1, beta= 1.0, omega = 0, a = 1|
     [
         { y[1] },
-		{ y[1] * mu.neg + (y[0]*(beta-y[0]*y[0])) +  (a * cos(omega * t)) }
+		{ y[1] * mu.neg + (y[0].squared * (beta - y[0])) + (a * cos(omega * t)) }
     ]
 }, 0, [0, 0], 1, 1);
 )
