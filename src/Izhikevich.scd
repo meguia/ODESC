@@ -1,7 +1,4 @@
 
-s.options.blockSize = 64;
-s.reboot;
-
 ////////////////////////////////////////////////////////////////////////////////
 /// IZHIKEVICH NEURON MODEL WITH RESET
 
@@ -100,8 +97,8 @@ SynthDef(\IZHINP, {
 
 ~cBus.scope();
 
-~osc  = {Out.ar(0,Saw.ar(\freq.kr(100)))}.play;
+~osc  = { Saw.ar(\freq.kr(100)) }.play;
 
-~osc.map(\freq,~cBus.index);
+~osc.map(\freq, ~cBus.index);
 
 ~cBus.set(20);

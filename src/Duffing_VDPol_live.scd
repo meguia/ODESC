@@ -1,5 +1,4 @@
-s.options.blockSize = 64;
-s.boot;
+
 ////////////////////////////////////////////////////////////////////////
 /// COUPLED DUFFING AND VAN DER POL OSCILLATORS
 
@@ -32,8 +31,8 @@ Ndef(\Dvdp, {|alpha=0.1, tau=0.1, mu=1, beta=1.0, k12=0.1, amp=0.2, tm1=100, tm2
 )
 
 (
-~scope = QStethoscope();
-~scope.scopeView.style = 2;
+~scope = Stethoscope();
+~scope.style = 2;
 )
 
 FreqScope.new(600, 300, 0);

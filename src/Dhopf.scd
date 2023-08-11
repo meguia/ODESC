@@ -2,10 +2,10 @@
 (
 Fb1_ODEdef(\Dhopf, { |t, y, p1=1.8, p2=1.5, p3=0.7|
     [
-		{ p1*((0.5*y[0])+y[1]-y[3]-(y[0]*y[0]*(0.6+y[0])))},
-		{ -1.0*p3*y[0]},
-		{ 2.4*y[3]},
-		{ 0.6*(y[0]-y[2]-(p2*y[3])) }
+		{ p1 * ((0.5 * y[0]) + y[1] - y[3] - (y[0].squared * (0.6 + y[0]))) },
+		{ -1.0 * p3 * y[0] },
+		{ 2.4 * y[3]},
+		{ 0.6 * (y[0] - y[2] - (p2 * y[3])) }
     ]
 }, 0, [0.1, 0.1, 0.1, 0.1], 1, 1);
 )
@@ -28,8 +28,8 @@ SynthDef(\VDhopf, {
 
 
 (
-~scope = QStethoscope();
-~scope.scopeView.style = 2;
+~scope = Stethoscope();
+~scope.style = 2;
 SynthDescLib.global[\VDhopf].makeGui;
 )
 

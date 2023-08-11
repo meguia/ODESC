@@ -1,13 +1,12 @@
-Quarks.gui
 
 ////////////////////////////////////////////////////////////////////////
 /// TWO COUPLED DUFFING VAN DER POL OSCILLATORS
 
 (
-Fb1_ODEdef(\Vanderpol, { |t, y, mu = 1.0, tau=1.0|
+Fb1_ODEdef(\Vanderpol, { |t, y, mu = 1.0|
     [
-		{ y[1]*tau },
-		{ tau*(mu*y[1]*(1-(y[0]*y[0]))) - (tau*y[0]) }
+		{ y[1] },
+		{ mu * y[1] * (1 - y[0].squared) - y[0] }
     ]
 }, 0, [0, 1], 1, 1);
 )
@@ -16,7 +15,7 @@ Fb1_ODEdef(\Vanderpol, { |t, y, mu = 1.0, tau=1.0|
 Fb1_ODEdef(\DFVanderpol, { |t, y, mu = 1.0, beta=1.0|
     [
 		{ y[1] },
-		{ ((mu - y[0]*y[0]) * y[1]) + (y[0]*(beta-y[0]*y[0])) }
+		{ ((mu - y[0]) * y[0] * y[1]) + (y[0].squared * (beta - y[0])) }
     ]
 }, 0, [0, 1], 1, 1);
 )
@@ -81,7 +80,7 @@ SynthDef(\VDPDC, {
 
 
 (
-~scope = QStethoscope();
-~scope.scopeView.style = 2;
+~scope = Stethoscope();
+~scope.style = 2;
 SynthDescLib.global[\VDPDC].makeGui;
 )

@@ -1,7 +1,4 @@
 
-s.options.blockSize = 64;
-s.reboot;
-
 //////////////////////////////////////////////////////////////////////
 /// Chen Lee ATTRACTOR
 
@@ -53,8 +50,8 @@ SynthDef(\VChenlee2, {
 
 
 (
-~scope = QStethoscope();
-~scope.scopeView.style = 2;
+~scope = Stethoscope();
+~scope.style = 2;
 SynthDescLib.global[\VChenlee2].makeGui;
 )
 
@@ -67,8 +64,8 @@ SynthDescLib.global[\VChenlee2].makeGui;
 (
 Fb1_ODEdef(\Vanderpol, { |t, y, mu = 1.0, tau=1.0|
     [
-		{ y[1]*tau },
-		{ tau*(mu*y[1]*(1-(y[0]*y[0]))) - (tau*y[0]) }
+		{ y[1] * tau },
+		{ tau * (mu * y[1] * (1 - y[0].squared)) - (tau * y[0]) }
     ]
 }, 0, [0, 1], 1, 1);
 )
