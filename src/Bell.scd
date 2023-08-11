@@ -31,6 +31,16 @@ Ndef(\BALL).scope.style_(2);
 Ndef(\BALL).clear;
 
 
+(
+{
+	Fb1_ODE.ar(\Ball,
+		[-9.8, 100, 0],
+		1000, 0, [1, 0], 'sym12'
+	)
+}.plot
+)
+
+
 
 // bouncing ball on a surface
 // cursor position controls surface frequency and gravity
@@ -79,6 +89,18 @@ Fb1_ODEdef(\Bell, { |t, y, r = 0.4, lb= 1.6, k = 1000, mu=1.0, ymax = 0.45|
 	]
 }, 0, [0, 0, 0, 0], 1, 1);
 )
+
+
+
+(
+{
+	Fb1_ODE.ar(\Bell,
+		[0.4, 1.6, 100, 0],
+		10000, 0, [3.1, 0, 0, 0], 'sym12'
+	)
+}.plot
+)
+
 
 (
 Ndef(\BELL, {
