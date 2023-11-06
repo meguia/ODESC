@@ -1,6 +1,6 @@
 
 /////////////////////////////////////////////////////////
-/// MODULATED BOGDANOV TAKENS WITH CUBIC UNFOLDING
+/// MODULATED BOGDANOV TAKENS WITH CUBIC UNFOLDING FILTERED BY FIVE FORMANTS
 
 (
 Fb1_ODEdef(\Bogdanov, { |t, y, mu1 = 0.1, mu2 = 0.0|

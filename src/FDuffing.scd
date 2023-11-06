@@ -16,7 +16,7 @@ SynthDef(\ForcedDuffing, {
 	var omega = \omega.kr(1.0, spec: [0.1, 1.0, \exp, 0, 1.0]);
 	var a = \a.kr(0.1, spec: [0, 2.0, \lin, 0, 0.1]);
 	var tm = \tm.kr(1000, spec: [1,4000, \lin, 0, 1000]);
-	var eq = Fb1_ODE.ar(\FDuffing, [mu, beta, omega, a], tm, 0, [0, 1]);
+	var eq = Fb1_ODE.ar(\ForcedDuffing, [mu, beta, omega, a], tm, 0, [0, 1]);
 	Out.ar(\out.kr, eq)
 }).add;
 
