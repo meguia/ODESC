@@ -28,3 +28,26 @@ Ndef(\vdp).xset(\tm2,500)
 
 Ndef(\vdp).xset(\k12,0.1)
 
+
+// couple both ways
+
+(
+Ndef(\vdp1, {|mu1=1, mu2=1, tm1=300, tm2=300, k12=0.0|
+	var other = Ndef.ar(\vdp2).lag(0.3);
+	Fb1_ODE.ar(\Vanderpol2, [mu2, k12 * other.sum], tm2, 0, [0, 1])
+});
+Ndef(\vdp2, {|mu1=1, mu2=1, tm1=300, tm2=300, k12=0.0|
+	var other = Ndef.ar(\vdp1);
+	Fb1_ODE.ar(\Vanderpol2, [mu2, k12 * other.sum], tm2, 0, [0, 1])
+});
+Ndef(\mix, { |amp = 0.1|
+	[Ndef.ar(\vdp1), Ndef.ar(\vdp2)].sum * amp
+}).play
+)
+
+Ndef(\vdp1).xset(\k12, 0.1)
+Ndef(\vdp2).xset(\k12, 0.1)
+Ndef(\vdp1).xset(\tm1, 400, \tm2, 500)
+Ndef(\vdp1).xset(\tm1, 500, \tm2, 350)
+Ndef(\vdp1).xset(\tm1, rrand(300.0, 500), \tm2, rrand(300.0, 500))
+
