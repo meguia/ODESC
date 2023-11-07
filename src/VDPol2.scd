@@ -1,4 +1,4 @@
-// Two Coupled Van der Pol Oscillators
+// Two Coupled Van der Pol Oscillators (Unidirectionally) a -> b
 
 (
 Fb1_ODEdef(\Vanderpol2, { |t, y, mu = 1.0, input=0.0|
@@ -16,39 +16,56 @@ Ndef(\vdp, {|mu1=1, mu2=1, tm1=300, tm2=300, k12=0.0, amp=0.1|
 	var vdp1, vdp2;
 	vdp1 = Fb1_ODE.ar(\Vanderpol2, [mu1, 0],tm1, 0, [0, 1]);
 	vdp2 = Fb1_ODE.ar(\Vanderpol2, [mu2, k12*vdp1.sum],tm2, 0, [0, 1]);
-	(vdp1+vdp2)*amp;
+	vdp2*amp;
 }).play;
 )
 
 Ndef(\vdp).fadeTime = 5
 
-Ndef(\vdp).xset(\tm1,400)
+Ndef(\vdp).xset(\tm1,766)
+Ndef(\vdp).xset(\tm2,600)
 
-Ndef(\vdp).xset(\tm2,500)
+Ndef(\vdp).xset(\mu2,1.1)
+Ndef(\vdp).xset(\mu1,1.0)
 
-Ndef(\vdp).xset(\k12,0.1)
+
+Ndef(\vdp).xset(\k12,0.15)
 
 
-// couple both ways
+// Bidirectional coupling
 
 (
-Ndef(\vdp1, {|mu1=1, mu2=1, tm=300, k12=0.0|
+Ndef(\vdp1, {|mu=1.0, tm=300, k12=0.0|
 	var other = Ndef.ar(\vdp2);
-	Fb1_ODE.ar(\Vanderpol2, [mu2, k12 * other.sum], tm, 0, [0, 1])
+	Fb1_ODE.ar(\Vanderpol2, [mu, k12 * other.sum], tm, 0, [0, 1])
 });
-Ndef(\vdp2, {|mu1=1, mu2=1, tm=300, k12=0.0|
+Ndef(\vdp2, {|mu=1.0, tm=300, k12=0.0|
 	var other = Ndef.ar(\vdp1);
-	Fb1_ODE.ar(\Vanderpol2, [mu2, k12 * other.sum], tm, 0, [0, 1])
+	Fb1_ODE.ar(\Vanderpol2, [mu, k12 * other.sum], tm, 0, [0, 1])
 });
 Ndef(\mix, { |amp = 0.1|
 	[Ndef.ar(\vdp1), Ndef.ar(\vdp2)].sum * amp
-}).play
+}).play;
 )
 
-Ndef(\vdp1).xset(\k12, 0.3)
-Ndef(\vdp2).xset(\k12, 0.3)
-Ndef(\vdp1).xset(\tm, 130)
-Ndef(\vdp1).xset(\tm, 350)
+//
+
+
+(
+~scope = Stethoscope();
+~scope.style = 2;
+)
+
+
+// not working as expected, setting the same value
+Ndef(\vdp1).xset(\k12, 0.0)
+Ndef(\vdp2).xset(\k12, 0.0)
+Ndef(\vdp1).xset(\tm, 300)
+Ndef(\vdp2).xset(\tm, 300)
+
+Ndef(\vdp1).xset(\mu,1.0)
+Ndef(\vdp2).xset(\mu,1.0)
+
 Ndef(\vdp1).xset(\tm, rrand(300.0, 500))
 Ndef(\vdp2).xset(\tm, rrand(300.0, 500))
 
@@ -62,10 +79,10 @@ Ndef(\vdp1).xset(\tm, Ndef(\modx));
 ~all = { NodeProxy.audio(s, 2) } ! 8;
 (
 ~all.do { |x, i|
-	x.source = {|mu1=1, mu2=1, tm=300, k12=0.0|
+	x.source = {|mu=1, tm=300, k12=0.0|
 		var other = ~all.wrapAt(i - 1).ar;
 		i.postln;
-		Fb1_ODE.ar(\Vanderpol2, [mu2, k12 * other.sum], tm, 0, [0, 1])
+		Fb1_ODE.ar(\Vanderpol2, [mu, k12 * other.sum], tm, 0, [0, 1])
 	}
 };
 
@@ -74,7 +91,7 @@ Ndef(\mix, { |amp = 0.1|
 }).play
 )
 
-~all.do { |x| x.xset(\tm, exprand(10.0, 1500)) };
+~all.do { |x| x.xset(\tm, exprand(600.0, 900.0)) };
 
 
 Ndef(\modx, { MouseX.kr(0, 1000) });

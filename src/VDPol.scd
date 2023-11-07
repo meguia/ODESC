@@ -42,7 +42,7 @@ SynthDef(\VDP, {
 	sig= Fb1_ODE.ar(\Vanderpol, [\mu.kr(0.1)], \tm.kr(1000), 0, [1.0, 0]);
 	Out.ar(0, sig*\amp.kr(0.2))
 }, metadata: (specs: (
-	mu: [-0.5, 1.0, \lin, 0, 0.1],
+	mu: [-0.1, 2.0, \lin, 0, 0.1],
 	amp: [0.001, 0.5, \exp, 0, 0.2],
 	tm: [1,4000, \lin, 0, 1000]
 )

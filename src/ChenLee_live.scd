@@ -62,8 +62,8 @@ Ndef(\CHEN).xset(\a,6.0,\b,-10.0,\d,-0.16,\tm,700,\amp,0.1)
 Ndef(\VDP).xset(\tau,1.3,\amp,0.1,\tm,310)
 
 
-Ndef(\VDP).xset(\tau,1.1,\amp,0.1,\tm,710)
-Ndef(\CHEN).xset(\a,6.0,\b,-12.0,\d,-0.37,\tm,3,\amp,0.4)
+Ndef(\VDP).xset(\tau,1.1,\amp,0.2,\tm,810)
+Ndef(\CHEN).xset(\a,1.0,\b,-12.0,\d,-0.11,\tm,53,\amp,0.4)
 
 Ndef(\CHEN).clear
 Ndef(\VDP).clear

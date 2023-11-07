@@ -2,6 +2,8 @@
 ////////////////////////////////////////////////////////////////////////
 /// TWO COUPLED DUFFING VAN DER POL OSCILLATORS
 
+// EQUATIONS
+
 (
 Fb1_ODEdef(\Vanderpol, { |t, y, mu = 1.0|
     [
@@ -15,40 +17,10 @@ Fb1_ODEdef(\Vanderpol, { |t, y, mu = 1.0|
 Fb1_ODEdef(\DFVanderpol, { |t, y, mu = 1.0, beta=1.0|
     [
 		{ y[1] },
-		{ ((mu - y[0]) * y[0] * y[1]) + (y[0].squared * (beta - y[0])) }
+		{ ((mu - y[0]*y[0]) * y[1]) + (y[0]*(beta-y[0]*y[0])) }
     ]
 }, 0, [0, 1], 1, 1);
 )
-
-(
-SynthDef(\VDP, {
-	var sig;
-	sig= Fb1_ODE.ar(\Vanderpol, [\mu.kr(0.1), \tau.kr(0.1)],\tm.kr(1000), 0, [0, 1]);
-	Out.ar(0, sig*\amp.kr(0.2))
-}, metadata: (specs: (
-	mu: [-0.5, 1.0, \lin, 0, 0.1],
-	tau: [0.0, 1.0, \lin, 0, 0.1],
-	amp: [0.001, 0.5, \exp, 0, 0.2],
-	tm: [1,4000, \lin, 0, 1000]
-)
-)).add;
-)
-
-(
-SynthDef(\DVDP, {
-	var sig;
-	sig= Fb1_ODE.ar(\DFVanderpol, [\mu.kr(0.1), \beta.kr(0.1)],\tm.kr(1000), 0, [0, 1]);
-	Out.ar(0, sig*\amp.kr(0.2))
-}, metadata: (specs: (
-	mu: [-0.5, 1.0, \lin, 0, 0.1],
-	beta: [0.0, 1.0, \lin, 0, 0.1],
-	amp: [0.001, 0.5, \exp, 0, 0.2],
-	tm: [1,4000, \lin, 0, 1000]
-)
-)).add;
-)
-
-
 
 (
 Fb1_ODEdef(\VDPD2, { |t, y, mu1 = 0.1, beta1= 1.0, mu2 = 0.1, beta2= 1.0, k=0.0|
@@ -60,6 +32,40 @@ Fb1_ODEdef(\VDPD2, { |t, y, mu1 = 0.1, beta1= 1.0, mu2 = 0.1, beta2= 1.0, k=0.0|
     ]
 }, 0, [0, 0, 0, 0], 1, 1);
 )
+
+// SYNTHS
+// VAN DER POL OSCILLATOR VDP
+
+(
+SynthDef(\VDP, {
+	var sig;
+	sig= Fb1_ODE.ar(\Vanderpol, [\mu.kr(0.1), \tau.kr(0.1)],\tm.kr(1000), 0, [0, 1]);
+	Out.ar(0, sig*\amp.kr(0.2))
+}, metadata: (specs: (
+	mu: [0.0, 2.0, \lin, 0, 0.1],
+	amp: [0.001, 0.5, \exp, 0, 0.2],
+	tm: [1,4000, \lin, 0, 1000]
+)
+)).add;
+)
+
+// DUFFING- VAN DER POL OSCILLATOR DVDP
+
+(
+SynthDef(\DVDP, {
+	var sig;
+	sig= Fb1_ODE.ar(\DFVanderpol, [\mu.kr(0.1), \beta.kr(0.1)],\tm.kr(1000), 0, [0, 1]);
+	Out.ar(0, sig*\amp.kr(0.2))
+}, metadata: (specs: (
+	mu: [0.0, 2.0, \lin, 0, 0.1],
+	beta: [0.0, 1.0, \lin, 0, 0.1],
+	amp: [0.001, 0.5, \exp, 0, 0.2],
+	tm: [1,4000, \lin, 0, 1000]
+)
+)).add;
+)
+
+// TWO COUPLED DVDP OSCILLATORS
 
 (
 SynthDef(\VDPDC, {
@@ -82,5 +88,5 @@ SynthDef(\VDPDC, {
 (
 ~scope = Stethoscope();
 ~scope.style = 2;
-SynthDescLib.global[\VDPDC].makeGui;
+SynthDescLib.global[\DVDP].makeGui;
 )
