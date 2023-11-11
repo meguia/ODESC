@@ -15,13 +15,13 @@ Fb1_ODEdef(\Reed, { |t, y, mu = 1.0, k=1.0|
 // Synth
 
 (
-Ndef(\reed, {|mu=1, k=1, amp=0.2, tm=400|
+Ndef(\reed, {|mu=0.1, k=1, amp=0.2, tm=400|
 	var r = Fb1_ODE.ar(\Reed, [mu,k],tm, 0, [0, 1]);
 	r*amp;
 }).play;
 )
 
-Ndef(\reed).xset(\mu,2.5)
+Ndef(\reed).gui;
 
 ////////////////////////////////////////////
 // Using SythDef

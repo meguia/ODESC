@@ -21,6 +21,8 @@ Ndef(\vdp, {|mu=1, amp=0.2, tm=100|
 }).play;
 )
 
+Ndef(\vdp).gui;
+
 (
 ~scope = Stethoscope();
 ~scope.style = 2;

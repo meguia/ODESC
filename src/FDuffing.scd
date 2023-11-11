@@ -29,6 +29,10 @@ Ndef(\ForcedDuffing, \ForcedDuffing);
 Ndef(\ForcedDuffing).gui;
 )
 
+Ndef(\ForcedDuffing).set(\mu, 0.29);
+Ndef(\ForcedDuffing).set(\mu, 0.281);
+Ndef(\ForcedDuffing).set(\mu, 0.29);
+Ndef(\ForcedDuffing).set(\mu, 0.29);
 
 
 // sound examples

@@ -1,3 +1,5 @@
+s.options.blockSize = 16;
+s.reboot;
 
 ///////////////////////////////////////////////////
 
@@ -16,7 +18,7 @@ Fb1_ODEdef(\saxophone, { |t, y, gamma, zeta| // blow, lip pressue
 		{
 			var pressure = pressures.sum;
 			var contactForce = 100 * min(y[0]+1, 0).squared * (1-y[1]);
-			var forces = (omega0.squared * (contactForce + pressure - gamma - y[0]));
+			var forces = omega0.squared * (contactForce + pressure - gamma - y[0]);
 			var dissipativeForce = omega0.neg * y[1];
 			dissipativeForce + forces
 		},
@@ -29,10 +31,10 @@ Fb1_ODEdef(\saxophone, { |t, y, gamma, zeta| // blow, lip pressue
 
 	8.do { |i|
 		equations = equations.add({
-			neg(alpha[i]) * pressures[i] - (2 * omega[i] * velocities[i] + (2 * c[i] * u.value))
+			(neg(alpha[i]) * pressures[i]) - (2 * omega[i] * velocities[i]) + (2 * c[i] * u.value)
 		});
 		equations = equations.add({
-			neg(alpha[i]) * velocities[i] + (0.5 * omega[i] * pressures[i])
+			(neg(alpha[i]) * velocities[i]) + (0.5 * omega[i] * pressures[i])
 		});
 	};
 
@@ -42,9 +44,9 @@ Fb1_ODEdef(\saxophone, { |t, y, gamma, zeta| // blow, lip pressue
 
 SynthDef(\saxophone, {
 	var env = EnvGate.new;
-	var gamma = \gamma.kr(0.3, spec: [0.0, 0.8, \lin, 0, 0.3]);
-	var zeta = \zeta.kr(0.6, spec: [0.0, 1.0, \lin, 0, 0.6]);
-	var tm = \tm.kr(1000, spec: [1, 4000, \lin, 0, 1000]);
+	var gamma = \gamma.kr(0.3, 0.05, spec: [0.0, 0.8, \lin, 0, 0.3]);
+	var zeta = \zeta.kr(0.6, 0.05, spec: [0.0, 1.0, \lin, 0, 0.6]);
+	var tm = \tm.kr(1000, 0.1, spec: [1, 4000, \lin, 0, 1000]);
 	var eq = Fb1_ODE.ar(\saxophone, [gamma * env, zeta], tm, 0);
 	Out.ar(\out.kr, eq)
 }).add;

@@ -57,20 +57,37 @@ Ndef(\mix, { |amp = 0.1|
 )
 
 
-// not working as expected, setting the same value
-Ndef(\vdp1).xset(\k12, 0.0)
-Ndef(\vdp2).xset(\k12, 0.0)
-Ndef(\vdp1).xset(\tm, 300)
-Ndef(\vdp2).xset(\tm, 300)
+//
+Ndef(\vdp1).set(\k12, 0.0)
+Ndef(\vdp2).set(\k12, 0.0)
+Ndef(\vdp1).set(\tm, 400)
+Ndef(\vdp2).set(\tm, 400)
 
-Ndef(\vdp1).xset(\mu,1.0)
-Ndef(\vdp2).xset(\mu,1.0)
 
-Ndef(\vdp1).xset(\tm, rrand(300.0, 500))
-Ndef(\vdp2).xset(\tm, rrand(300.0, 500))
 
-Ndef(\modx, { MouseX.kr(0, 1000) });
-Ndef(\vdp1).xset(\tm, Ndef(\modx));
+Ndef(\vdp1).gui;
+Ndef(\vdp2).gui;
+
+// Three oscillators
+
+(
+Ndef(\vdp1, {|mu=1.0, tm=300, k12=0.0, k13=0.0|
+	var input = (k12*Ndef.ar(\vdp2).sum)+(k13*Ndef.ar(\vdp3).sum);
+	Fb1_ODE.ar(\Vanderpol2, [mu, input], tm, 0, [0, 1])
+});
+Ndef(\vdp2, {|mu=1.0, tm=300, k12=0.0, k23=0.0|
+	var input = (k12*Ndef.ar(\vdp1).sum)+(k23*Ndef.ar(\vdp3).sum);
+	Fb1_ODE.ar(\Vanderpol2, [mu, input], tm, 0, [0, 1])
+});
+Ndef(\vdp3, {|mu=1.0, tm=300, k13=0.0, k23=0.0|
+	var input = (k13*Ndef.ar(\vdp1).sum)+(k23*Ndef.ar(\vdp2).sum);
+	Fb1_ODE.ar(\Vanderpol2, [mu, input], tm, 0, [0, 1])
+});
+)
+
+Ndef(\vdp1).gui;
+Ndef(\vdp2).gui;
+Ndef(\vdp3).gui;
 
 
 
