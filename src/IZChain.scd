@@ -34,7 +34,7 @@ SynthDef(\izunit, {
 
 // Array of N units
 
-~units = { NodeProxy.audio(s, 1) } ! 8;
+~units = { NodeProxy.audio(s, 1) } ! 16;
 
 ~units.do {|x| x.source = \izunit};
 

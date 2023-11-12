@@ -81,7 +81,6 @@ Ndef(\mix, {
 	var preDelayed = DelayL.ar(sig, 0.03, 0.03);
 	sig = FreeVerb.ar(preDelayed, mix: 0.4, room: 0.8, damp: 0.8) + sig;
 	sig * 0.3 ! 2
-
 }).play;
 )
 
@@ -94,14 +93,15 @@ Ndef(\saxophone).set(\c,  [0.1761, 0.4705, 0.6494, 0.328, 0.541, 0.2249, 0.3822,
 
 
 // rough modulations
-Ndef(\omegaN, { [1.195, 2.483, 3.727, 4.405, 5.153, 6.177, 6.749, 7.987] + LFNoise0.kr(2 ! 8).exprange(0.001, 2) });
-Ndef(\omegaN, { [1.195, 2.483, 3.727, 4.405, 5.153, 6.177, 6.749, 7.987] + LFNoise0.kr(SinOsc.kr(0.1).range(1, 9) ! 8).exprange(0.001, 1.5) });
-Ndef(\saxophone).set(\omega, Ndef(\omegaN));
+Ndef(\omega, { [1.195, 2.483, 3.727, 4.405, 5.153, 6.177, 6.749, 7.987] + LFNoise0.kr(2 ! 8).exprange(0.001, 2) });
+Ndef(\omega, { [1.195, 2.483, 3.727, 4.405, 5.153, 6.177, 6.749, 7.987] + LFNoise0.kr(SinOsc.kr(0.1).range(1, 9) ! 8).exprange(0.001, 1.5) });
+Ndef(\saxophone).set(\omega, Ndef(\omega));
 
 // pressure and blow envelopes
 
 Ndef(\gamma, { MouseX.kr(0, 0.8) + LFNoise1.kr(SinOsc.kr(0.1).range(-2, 9), 1).max(0) });
 Ndef(\zeta, { MouseY.kr(0, 1) + LFPulse.kr(SinOsc.kr(0.1).exprange(1, 3), 0, 0.3, 0.3) % 1 });
+
 
 
 // // back to default
