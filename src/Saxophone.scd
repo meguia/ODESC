@@ -53,10 +53,21 @@ Ndef(\saxophone, \saxophone);
 Ndef(\saxophone).set(\tm, 600);
 Ndef(\saxophone, \saxophone).play(vol:0.1);
 
-Ndef(\saxophone).set(\omega, [1.195,2.483,3.727,4.405,5.153,6.177,6.749,7.987] + 1);
-Ndef(\saxophone).set(\alpha, [0.0176,0.0355,0.0653,0.2693,0.0703,0.166,0.0945,0.1165] + 0.04);
-Ndef(\saxophone).set(\alpha, [0.0176,0.0355,0.0653,0.2693,0.0703,0.166,0.0945,0.1165].scramble);
-Ndef(\saxophone).set(\c, [0.1761,0.4705,0.6494,0.328,0.541,0.2249,0.3822,0.4099].scramble);
+Ndef(\saxophone).set(\omega,  [1.195, 2.483, 3.727, 4.405, 5.153, 6.177, 6.749, 7.987] + 1);
+Ndef(\saxophone).set(\alpha,  [0.0176, 0.0355, 0.0653, 0.2693, 0.0703, 0.166, 0.0945, 0.1165] + 0.04);
+
+Ndef(\saxophone).set(\alpha,  [0.0176, 0.0355, 0.0653, 0.2693, 0.0703, 0.166, 0.0945, 0.1165].scramble); // some random variations
+Ndef(\saxophone).set(\c,  [0.1761, 0.4705, 0.6494, 0.328, 0.541, 0.2249, 0.3822,0.4099].scramble); // some random variations
+
+
+
+// // back to default
+(
+Ndef(\saxophone).set(\omega, [1.195, 2.483, 3.727, 4.405, 5.153, 6.177, 6.749, 7.987]);
+Ndef(\saxophone).set(\alpha, [0.0176, 0.0355, 0.0653, 0.2693, 0.0703, 0.166, 0.0945, 0.1165]);
+Ndef(\saxophone).set(\c, [0.1761, 0.4705, 0.6494, 0.328, 0.541, 0.2249, 0.3822,0.4099]);
+)
+
 
 (
 ~scope = Ndef(\saxophone).scope;
@@ -65,8 +76,9 @@ Ndef(\saxophone).gui;
 )
 
 
+// play with cursor
 
-Ndef(\gamma, { MouseX.kr(0, 0.8) });
-Ndef(\zeta, { MouseY.kr(0, 1) });
+Ndef(\gamma,  { MouseX.kr(0, 0.8).poll(3, "gamma") });
+Ndef(\zeta, { MouseY.kr(0, 1).poll(3, "zeta") });
 Ndef(\saxophone).set(\zeta, Ndef(\zeta), \gamma, Ndef(\gamma));
 
