@@ -68,26 +68,6 @@ Ndef(\vdp2).set(\tm, 400)
 Ndef(\vdp1).gui;
 Ndef(\vdp2).gui;
 
-// Three oscillators
-
-(
-Ndef(\vdp1, {|mu=1.0, tm=300, k12=0.0, k13=0.0|
-	var input = (k12*Ndef.ar(\vdp2).sum)+(k13*Ndef.ar(\vdp3).sum);
-	Fb1_ODE.ar(\Vanderpol2, [mu, input], tm, 0, [0, 1])
-});
-Ndef(\vdp2, {|mu=1.0, tm=300, k12=0.0, k23=0.0|
-	var input = (k12*Ndef.ar(\vdp1).sum)+(k23*Ndef.ar(\vdp3).sum);
-	Fb1_ODE.ar(\Vanderpol2, [mu, input], tm, 0, [0, 1])
-});
-Ndef(\vdp3, {|mu=1.0, tm=300, k13=0.0, k23=0.0|
-	var input = (k13*Ndef.ar(\vdp1).sum)+(k23*Ndef.ar(\vdp2).sum);
-	Fb1_ODE.ar(\Vanderpol2, [mu, input], tm, 0, [0, 1])
-});
-)
-
-Ndef(\vdp1).gui;
-Ndef(\vdp2).gui;
-Ndef(\vdp3).gui;
 
 
 
