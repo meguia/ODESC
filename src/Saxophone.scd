@@ -13,13 +13,14 @@ Fb1_ODEdef(\saxophone, { |t, y, gamma, zeta| // blow, lip pressue
 	var velocities = y[3,5..];
 	var equations, u;
 	var pressure = pressures.sum;
-	var fluxVelocity = zeta * max(y[0]+1, 0) * sign(gamma - pressure) * (gamma - pressure).abs.sqrt;
+	var blowPressure = gamma - pressure;
+	var fluxVelocity = zeta * max(y[0]+1, 0) * blowPressure.abs.sqrt * blowPressure.sign;
 
 	equations = [
 		{ y[1] },
 		{
 			var contactForce = 100 * min(y[0]+1, 0).squared * (1-y[1]);
-			var forces = omega0.squared * (contactForce + pressure - gamma - y[0]);
+			var forces = omega0.squared * (contactForce - blowPressure - y[0]);
 			var dissipativeForce = omega0.neg * y[1];
 			dissipativeForce + forces
 		}
@@ -49,7 +50,6 @@ SynthDef(\saxophone, {
 
 Ndef(\saxophone, \saxophone);
 )
-
 
 // direct playback
 Ndef(\saxophone).set(\tm, 600);
