@@ -1,4 +1,4 @@
-s.options.blockSize = 8;
+s.options.blockSize = 16;
 s.reboot;
 
 ///////////////////////////////////////////////////
@@ -59,6 +59,14 @@ Ndef(\saxophone).set(\alpha,  [0.0176, 0.0355, 0.0653, 0.2693, 0.0703, 0.166, 0.
 Ndef(\saxophone).set(\alpha,  [0.0176, 0.0355, 0.0653, 0.2693, 0.0703, 0.166, 0.0945, 0.1165].scramble); // some random variations
 Ndef(\saxophone).set(\c,  [0.1761, 0.4705, 0.6494, 0.328, 0.541, 0.2249, 0.3822,0.4099].scramble); // some random variations
 
+
+// rough modulations
+Ndef(\omegaN, { [1.195, 2.483, 3.727, 4.405, 5.153, 6.177, 6.749, 7.987] + LFNoise0.kr(1).exprange(0.001, 2) });
+Ndef(\saxophone).set(\omega, Ndef(\omegaN));
+
+// alpha envelopes
+
+Ndef(\gamma,  { MouseX.kr(0, 0.8) + LFNoise1.kr(SinOsc.kr(0.1).range(1, 9), 1).max(0) });
 
 
 // // back to default
