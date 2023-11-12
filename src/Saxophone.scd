@@ -50,8 +50,41 @@ SynthDef(\saxophone, {
 Ndef(\saxophone, \saxophone);
 )
 
+
+// direct playback
 Ndef(\saxophone).set(\tm, 600);
 Ndef(\saxophone, \saxophone).play(vol:0.1);
+
+
+// scoping
+(
+~scope = Ndef(\saxophone).scope;
+~scope.style = 2;
+Ndef(\saxophone).gui;
+)
+
+
+
+// play with cursor
+(
+Ndef(\gamma,  { MouseX.kr(0, 0.8).poll(3, "gamma") });
+Ndef(\zeta, { MouseY.kr(0, 1).poll(3, "zeta") });
+Ndef(\saxophone).set(\zeta, Ndef(\zeta), \gamma, Ndef(\gamma));
+)
+
+
+// playback with a bit of space
+(
+Ndef(\saxophone, \saxophone).stop;
+Ndef(\mix, {
+	var sig = Ndef.ar(\saxophone).sum;
+	var preDelayed = DelayL.ar(sig, 0.03, 0.03);
+	sig = FreeVerb.ar(preDelayed, mix: 0.4, room: 0.8, damp: 0.8) + sig;
+	sig * 0.3 ! 2
+
+}).play;
+)
+
 
 Ndef(\saxophone).set(\omega,  [1.195, 2.483, 3.727, 4.405, 5.153, 6.177, 6.749, 7.987] + 1);
 Ndef(\saxophone).set(\alpha,  [0.0176, 0.0355, 0.0653, 0.2693, 0.0703, 0.166, 0.0945, 0.1165] + 0.04);
@@ -61,12 +94,14 @@ Ndef(\saxophone).set(\c,  [0.1761, 0.4705, 0.6494, 0.328, 0.541, 0.2249, 0.3822,
 
 
 // rough modulations
-Ndef(\omegaN, { [1.195, 2.483, 3.727, 4.405, 5.153, 6.177, 6.749, 7.987] + LFNoise0.kr(1).exprange(0.001, 2) });
+Ndef(\omegaN, { [1.195, 2.483, 3.727, 4.405, 5.153, 6.177, 6.749, 7.987] + LFNoise0.kr(2 ! 8).exprange(0.001, 2) });
+Ndef(\omegaN, { [1.195, 2.483, 3.727, 4.405, 5.153, 6.177, 6.749, 7.987] + LFNoise0.kr(SinOsc.kr(0.1).range(1, 9) ! 8).exprange(0.001, 1.5) });
 Ndef(\saxophone).set(\omega, Ndef(\omegaN));
 
-// alpha envelopes
+// pressure and blow envelopes
 
-Ndef(\gamma,  { MouseX.kr(0, 0.8) + LFNoise1.kr(SinOsc.kr(0.1).range(1, 9), 1).max(0) });
+Ndef(\gamma, { MouseX.kr(0, 0.8) + LFNoise1.kr(SinOsc.kr(0.1).range(-2, 9), 1).max(0) });
+Ndef(\zeta, { MouseY.kr(0, 1) + LFPulse.kr(SinOsc.kr(0.1).exprange(1, 3), 0, 0.3, 0.3) % 1 });
 
 
 // // back to default
@@ -74,19 +109,5 @@ Ndef(\gamma,  { MouseX.kr(0, 0.8) + LFNoise1.kr(SinOsc.kr(0.1).range(1, 9), 1).m
 Ndef(\saxophone).set(\omega, [1.195, 2.483, 3.727, 4.405, 5.153, 6.177, 6.749, 7.987]);
 Ndef(\saxophone).set(\alpha, [0.0176, 0.0355, 0.0653, 0.2693, 0.0703, 0.166, 0.0945, 0.1165]);
 Ndef(\saxophone).set(\c, [0.1761, 0.4705, 0.6494, 0.328, 0.541, 0.2249, 0.3822,0.4099]);
+Ndef(\saxophone).set(\zeta, 0.6, \gamma, 0.3);
 )
-
-
-(
-~scope = Ndef(\saxophone).scope;
-~scope.style = 2;
-Ndef(\saxophone).gui;
-)
-
-
-// play with cursor
-
-Ndef(\gamma,  { MouseX.kr(0, 0.8).poll(3, "gamma") });
-Ndef(\zeta, { MouseY.kr(0, 1).poll(3, "zeta") });
-Ndef(\saxophone).set(\zeta, Ndef(\zeta), \gamma, Ndef(\gamma));
-
