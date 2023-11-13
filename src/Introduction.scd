@@ -78,10 +78,10 @@ Ndef.defaultReshaping = \elastic; // for automatic channel adjustment
 
 
 // this shows the x-y-coordinates:
-Ndef(\x, { Fb1_ODE.ar(\x, [20, 0.004], tMul: 100, y0: [1, 0]) * 0.5 }).scope.style_(2);
+Ndef(\a, { Fb1_ODE.ar(\x, [20, 0.004], tMul: 100, y0: [1, 0]) * 0.5 }).scope.style_(2);
 
 (
-Ndef(\x, { |k = 200, mu = 0.01|
+Ndef(\a, { |k = 200, mu = 0.01|
 	var a = Fb1_ODE.ar(\x, [k, mu], tMul: 100, y0:[1,0]);
 	a[0] * 0.1 // use the first variable as output and scale it
 
@@ -89,15 +89,16 @@ Ndef(\x, { |k = 200, mu = 0.01|
 )
 
 // try different variants of systems, with k and mu
-Ndef(\x).send([\k, 250, \mu, 0.1]);
-Ndef(\x).send([\k, 350, \mu, 0.05]);
-Ndef(\x).send([\k, 305, \mu, 0.2]);
+Ndef(\a).send([\k, 250, \mu, 0.1]);
+Ndef(\a).send([\k, 350, \mu, 0.05]);
+Ndef(\a).send([\k, 305, \mu, 0.2]);
 
 // or set them as it runs. Start with zero damping, so it maintains the oscillation
-Ndef(\x).send([\k, 250, \mu, 0]);
-Ndef(\x).set(\k, 152);
-Ndef(\x).set(\k, 252);
-fork { 100.do { Ndef(\x).set(\k, 100.0.rand + 200); 0.01.wait } };
+Ndef(\a).send([\k, 250, \mu, 0]);
+Ndef(\a).set(\k, 152);
+Ndef(\a).set(\k, 252);
+fork { 100.do { Ndef(\a).set(\k, 100.0.rand + 200); 0.01.wait } };
+
 
 
 
