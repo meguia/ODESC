@@ -45,7 +45,7 @@ SynthDef(\saxophone, {
 	var zeta = \zeta.kr(0.6, 0.05, spec: [0.0, 1.0, \lin, 0, 0.6]);
 	var tm = \tm.kr(1000, 0.1, spec: [1, 4000, \lin, 0, 1000]);
 	var eq = Fb1_ODE.ar(\saxophone, [gamma * env, zeta], tm, 0);
-	Out.ar(\out.kr, eq)
+	Out.ar(\out.kr, eq * (10 * \amp.kr(0.1)))
 }).add;
 
 Ndef(\saxophone, \saxophone);
@@ -53,7 +53,7 @@ Ndef(\saxophone, \saxophone);
 
 // direct playback
 Ndef(\saxophone).set(\tm, 600);
-Ndef(\saxophone, \saxophone).play(vol:0.1);
+Ndef(\saxophone, \saxophone).play;
 
 
 // scoping
@@ -120,5 +120,20 @@ a.set(\gamma, 0.5, \zeta, 0.7);
 a.set(\gamma, 0.3, \zeta, 0.7);
 a.set(\gamma, 0.57, \zeta, 0.29);
 a.release(2);
+
+// reed-randomophone
+(
+Pdef(\x,
+	Pmono(\saxophone,
+		\tm, 600,
+		\dur, Pseq([1, 0.5, 1/3, 2/3], inf) / 5,
+		\omega, Pfunc { [({ rrand(1.0, 9.0) } ! 8)] },
+		\alpha, Pfunc { [({ rrand(0.01, 0.1) } ! 8)] },
+		\c, Pfunc { [({ rrand(0.2, 0.4) } ! 8)] },
+		\gamma, Pseg(Pwhite(0.3, 0.8), Pwhite(0.4, 1.7)),
+		\zeta, Pwhite()
+	)
+).play;
+)
 
 
