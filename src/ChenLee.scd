@@ -26,7 +26,7 @@ SynthDef(\VChenlee, {
 )).add;
 )
 
-Ndef(\VChenlee, \VChenlee);
+Ndef(\VChenlee, \VChenlee).play;
 Ndef(\VChenlee).gui;
 
 
@@ -47,7 +47,7 @@ SynthDef(\VChenlee2, {
 )).add;
 )
 
-Ndef(\VChenlee, \VChenlee2);
+Ndef(\VChenlee, \VChenlee2).play;
 
 (
 ~scope = Stethoscope();
@@ -83,13 +83,13 @@ SynthDef(\Vvanderpol, {
 )).add;
 )
 
-Ndef(\VChenlee, \Vvanderpol);
+Ndef(\VChenlee, \Vvanderpol).play;
 
 (
 SynthDef(\VChenleeVdp, {
 	var env, sig;
-	env = Fb1_ODE.ar(\Chenlee, [\a.kr(5.0), \b.kr(-6.24),\d.kr(-0.76)],\tm.kr(85), 0, [0, 1, 1]);
-	sig = Fb1_ODE.ar(\Vanderpol, [\mu.kr(1.0), \tau.kr(1.0)],\tm.kr(85), 0, [0, 1]);
+	env = Fb1_ODE.ar(\Chenlee, [\a.kr(5.0), \b.kr(-6.24), \d.kr(-0.76)], \tm.kr(85), 0, [0, 1, 1]);
+	sig = Fb1_ODE.ar(\Vanderpol, [\mu.kr(1.0), \tau.kr(1.0)], \tm.kr(85), 0, [0, 1]);
 	Out.ar(\out.kr, sig * env * \amp.kr(0.1))
 }, metadata: (specs: (
 	a: [3.0, 6.0, \lin, 0, 0.01],
@@ -103,7 +103,11 @@ SynthDef(\VChenleeVdp, {
 )).add;
 )
 
-Ndef(\VChenlee, \VChenleeVdp);
+Ndef(\VChenlee, \VChenleeVdp).play;
+Ndef(\VChenlee, \VChenleeVdp).set(\b, -5);
+Ndef(\VChenlee, \VChenleeVdp).set(\a, 10.2);
+
+
 
 (
 ~scope = QStethoscope();
