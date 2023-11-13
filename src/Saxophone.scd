@@ -111,3 +111,14 @@ Ndef(\saxophone).set(\alpha, [0.0176, 0.0355, 0.0653, 0.2693, 0.0703, 0.166, 0.0
 Ndef(\saxophone).set(\c, [0.1761, 0.4705, 0.6494, 0.328, 0.541, 0.2249, 0.3822,0.4099]);
 Ndef(\saxophone).set(\zeta, 0.6, \gamma, 0.3);
 )
+
+
+// test if the SynthDef fades out correctly:
+
+a = Synth(\saxophone, [\gamma, 0.3, \zeta, 0.6, \tm, 600]);
+a.set(\gamma, 0.5, \zeta, 0.7);
+a.set(\gamma, 0.3, \zeta, 0.7);
+a.set(\gamma, 0.57, \zeta, 0.29);
+a.release(2);
+
+
