@@ -44,7 +44,8 @@ SynthDef(\izunit, {
 Ndef(\mix, {
 	var neurons = ~units.collect{|x| x.ar(1)};
 	var allunits = neurons.collect {|x, i|
-		var freq = i.linexp(0,8,300,3000);
+		//var freq = i.linexp(0,8,300,3000);
+		var freq = (i + 1) * 200;
 		var decay = 30.0/freq;
 		Ringz.ar(x,freq,decay);
 	};

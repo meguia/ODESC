@@ -4,23 +4,24 @@ s.reboot;
 ///////////////////////////////////////////////////
 
 (
-Fb1_ODEdef(\saxophone, { |t, y, gamma, zeta| // blow, lip pressue
-	var omega0 = 4.224;
-	var omega = \omega.kr([1.195, 2.483, 3.727, 4.405, 5.153, 6.177, 6.749, 7.987]);
-	var alpha = \alpha.kr([0.0176, 0.0355, 0.0653, 0.2693, 0.0703, 0.166, 0.0945, 0.1165]);
-	var c = \c.kr([0.1761, 0.4705, 0.6494, 0.328, 0.541, 0.2249, 0.3822, 0.4099]);
-	var pressures = y[2,4..];
-	var velocities = y[3,5..];
-	var equations, u;
+Fb1_ODEdef(\saxophone, { |t, y, gamma, zeta| // gamma = blowing pressure, zeta = lip pressue
+	var omega0 = 4.224; // resonance freq of the reed
+	var omega = \omega.kr([1.195, 2.483, 3.727, 4.405, 5.153, 6.177, 6.749, 7.987]); // 2pi * freq
+	var alpha = \alpha.kr([0.0176, 0.0355, 0.0653, 0.2693, 0.0703, 0.166, 0.0945, 0.1165]); // width
+	var c = \c.kr([0.1761, 0.4705, 0.6494, 0.328, 0.541, 0.2249, 0.3822, 0.4099]); // amp
+	var pressures = y[2,4..]; // flux pressure
+	var velocities = y[3,5..]; // particle velocities
+	var equations;
 	var pressure = pressures.sum;
-	var blowPressure = gamma - pressure;
-	var fluxVelocity = zeta * max(y[0]+1, 0) * blowPressure.abs.sqrt * blowPressure.sign;
+	var drivingForce = gamma - pressure;
+	 // non-linear bernoulli term
+	var fluxVelocity = zeta * max(y[0]+1, 0) * drivingForce.abs.sqrt * drivingForce.sign;
 
 	equations = [
 		{ y[1] },
 		{
 			var contactForce = 100 * min(y[0]+1, 0).squared * (1-y[1]);
-			var forces = omega0.squared * (contactForce - blowPressure - y[0]);
+			var forces = omega0.squared * (contactForce - drivingForce - y[0]);
 			var dissipativeForce = omega0.neg * y[1];
 			dissipativeForce + forces
 		}
