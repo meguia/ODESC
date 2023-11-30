@@ -48,13 +48,14 @@ SynthDef(\saxophone, {
 	var eq = Fb1_ODE.ar(\saxophone, [gamma * env, zeta], tm, 0);
 	Out.ar(\out.kr, eq * (10 * \amp.kr(0.1)))
 }).add;
-
-Ndef(\saxophone, \saxophone);
 )
 
-// direct playback
-Ndef(\saxophone).set(\tm, 600);
+
+(
+Ndef(\saxophone, \saxophone);
+Ndef(\saxophone).set(\tm, 230 * 2);
 Ndef(\saxophone, \saxophone).play;
+)
 
 
 // scoping
@@ -87,13 +88,14 @@ Ndef(\mix, {
 
 
 Ndef(\saxophone).set(\omega,  [1.195, 2.483, 3.727, 4.405, 5.153, 6.177, 6.749, 7.987] + 1);
-Ndef(\saxophone).set(\alpha,  [0.0176, 0.0355, 0.0653, 0.2693, 0.0703, 0.166, 0.0945, 0.1165] + 0.04);
+Ndef(\saxophone).set(\alpha,  [0.0176, 0.0355, 0.0653, 0.2693, 0.0703, 0.166, 0.0945, 0.1165] * 0.1);
 
 Ndef(\saxophone).set(\alpha,  [0.0176, 0.0355, 0.0653, 0.2693, 0.0703, 0.166, 0.0945, 0.1165].scramble); // some random variations
 Ndef(\saxophone).set(\c,  [0.1761, 0.4705, 0.6494, 0.328, 0.541, 0.2249, 0.3822,0.4099].scramble); // some random variations
 
 
 // rough modulations
+Ndef(\omega, { [1.195, 2.483, 3.727, 4.405, 5.153, 6.177, 6.749, 7.987] + MouseY.kr(0, 3) });
 Ndef(\omega, { [1.195, 2.483, 3.727, 4.405, 5.153, 6.177, 6.749, 7.987] + LFNoise0.kr(2 ! 8).exprange(0.001, 2) });
 Ndef(\omega, { [1.195, 2.483, 3.727, 4.405, 5.153, 6.177, 6.749, 7.987] + LFNoise0.kr(SinOsc.kr(0.1).range(1, 9) ! 8).exprange(0.001, 1.5) });
 Ndef(\saxophone).set(\omega, Ndef(\omega));
@@ -110,7 +112,8 @@ Ndef(\zeta, { MouseY.kr(0, 1) + LFPulse.kr(SinOsc.kr(0.1).exprange(1, 3), 0, 0.3
 Ndef(\saxophone).set(\omega, [1.195, 2.483, 3.727, 4.405, 5.153, 6.177, 6.749, 7.987]);
 Ndef(\saxophone).set(\alpha, [0.0176, 0.0355, 0.0653, 0.2693, 0.0703, 0.166, 0.0945, 0.1165]);
 Ndef(\saxophone).set(\c, [0.1761, 0.4705, 0.6494, 0.328, 0.541, 0.2249, 0.3822,0.4099]);
-Ndef(\saxophone).set(\zeta, 0.6, \gamma, 0.3);
+Ndef(\saxophone).set(\zeta, 0.6);
+Ndef(\saxophone).set(\gamma, 0.3);
 )
 
 

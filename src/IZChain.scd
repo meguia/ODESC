@@ -4,8 +4,8 @@ s.reboot;
 (
 Fb1_ODEdef(\izhikevich, { |t, y, a=0.02, b=0.2, i=0|
     [
-		{ y[0]*(0.04*y[0]+5.0) +140 - y[1] + i },
-		{ a*(b*y[0]-y[1]) }
+		{ y[0] * (0.04 * y[0] + 5.0) + 140 - y[1] + i },
+		{ a * (b * y[0] - y[1]) }
     ]
 }, 0, [-50.0, 1.0], 1, 1);
 )
@@ -47,12 +47,14 @@ Ndef(\mix, {
 		//var freq = i.linexp(0,8,300,3000);
 		var freq = (i + 1) * 200;
 		var decay = 30.0/freq;
+		x = x.clip2 * 0.1;
 		Ringz.ar(x,freq,decay);
 	};
 	//Splay.ar(allunits)*0.03
-	allunits*0.03;
+	allunits * 0.1;
 }).play;
 )
+
 
 ~units.do {|x| x.set(\tm,150)};
 
@@ -60,12 +62,20 @@ Ndef(\mix, {
 
 // Regular spiking with spread in current (supra threshold)
 ~units.do {|x, i| x.set(\a,0.02,\b,0.2,\c,-65,\d,8.0,\i0,i.linlin(0,8,3.8,4.0))};
+~units.do {|x, i| x.set(\a,0.02,\b,0.2,\c,-65,\d,8.0,\i0,i.linlin(0,8,3.8,4.0))};
 
-~units.do {|x| x.set(\beta,30.0)};
-~units.do {|x| x.set(\alpha,30.0)};
+~units.do {|x| x.set(\alpha, 0.0)};
+~units.do {|x| x.set(\beta, 0.0)};
 
-// Chattering with spread in current (supra threshold)
-~units.do {|x, i| x.set(\a,0.1,\b,0.2,\c,-47,\d,2.0,\i0,i.linlin(0,8,3.9,4.1))};
+~units.do {|x| x.set(\beta, 30.0) };
+~units.do {|x| x.set(\alpha, 30.0) };
+
+~units.do {|x| x.set(\beta, 50.0) };
+~units.do {|x| x.set(\alpha, 50.0) };
+
+~units.do {|x| x.set(\beta, 60.0) };
+~units.do {|x| x.set(\alpha, 60.0) };
+
 
 ~units.do {|x| x.set(\beta,10.0)};
 ~units.do {|x| x.set(\alpha,10.0)};
