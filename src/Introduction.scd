@@ -4,19 +4,25 @@
 ///////////////////////////////////////////
 
 
+// A Dynamical Dystem can be defined by a set on N variables that evolve in time
+// Y(t) = [y[0], y[1], ... y[N-1]], and a fixed rule for this its evolution.
+// For a continuous dynamical system this rule is given by a system  of N ordinary
+// differential equations (ODE). Each ODE expresses the time derivative
+// (the instataneous rate of change) of each variable as a function of the other variables.
 
-// a dynamical system can be described by a series of differential equations
-// in a standard form, one equation for each of the variables
-// representing the time derivative of that variable, that is its instantaneous change
-
-// in order to find the time evolution of a dynamical system, an algorithm is used
-// that integrates it approximately. There are many methods for this.
+// In order to solve this ODEs and find the time evolution of the dynamical system,
+// an algorithm is used that integrates them approximately. There are many methods for this.
 // we use the Fb1_ODE classes by Daniel Mayer to trace it out in real time audio.
 
 
 // -- harmonic oscillator
-// the rate of change of the first variable (here, the position) is given by the second
-// the rate of change of the second variable (here the velocity) is given by the negative of the first
+// The time derivative af the first variable (here, the position) is equal to the second variable that
+// we associate with the velocity. This can be seen as the deffinition of the velocity.
+// The rate of change of the second variable (the velocity) physically corresponds to the acceleration
+// and then by the second Newton's law must be proportional to the forces. For an HO there are two forces:
+// 1. a linear elastic force that is proportional to the displacement (position) but opposite in sign (y[0].neg)
+// 2. a dissipation force that is proportional to the velocity and also opposite in sign
+// we consider first the case without dissipation:
 
 (
 a = Fb1_ODEdef(\x, { |t, y|
@@ -35,8 +41,7 @@ x.flop; // swapping rows and cols
 x.flop.plot // plot the values
 
 
-// adding a damping term into the oscillator
-// damping is depends on the second variable (here velocity)
+// adding the dissipation term into the oscillator
 
 (
 a = Fb1_ODEdef(\x, { |t, y|
